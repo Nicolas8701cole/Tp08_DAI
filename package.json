@@ -1,0 +1,28 @@
+{
+  "name": "tp08_dai",
+  "version": "1.0.0",
+  "description": "",
+  "homepage": "https://github.com/Nicolas8701cole/Tp08_DAI#readme",
+  "bugs": {
+    "url": "https://github.com/Nicolas8701cole/Tp08_DAI/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Nicolas8701cole/Tp08_DAI.git"
+  },
+  "license": "ISC",
+  "author": "Nicolas Frenkel y T L",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "cors": "^2.8.6",
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "http-status-codes": "^2.3.0",
+    "nodemon": "^3.1.14",
+    "pg": "^8.22.0"
+  }
+}
