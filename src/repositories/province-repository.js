@@ -48,7 +48,7 @@ export default class ProvinceRepository {
         return returnEntity
     }
 
-    createAsync = async (id) => {
+    createAsync = async (entity) => {
         let newId = 0
 
         try {
@@ -56,14 +56,14 @@ export default class ProvinceRepository {
                         (name, full_name, latitude, longitude, display_order)
                      values
                         ($1, $2, $3, $4, $5)
-                     returning id`;
+                     returning id`
             const values = [
                 entity.name,
                 entity.full_name,
                 entity.latitude,
                 entity.longitude,
                 entity.display_order
-            ];
+            ]
 
             const devolucion = await this.getDBPool().query(sql, values)
             newId = devolucion.rows[0].id
@@ -73,22 +73,30 @@ export default class ProvinceRepository {
 
         return newId
     }
-    updateAsync = async (id) => {
+    updateAsync = async (entity) => {
         let rowsAffected = 0
 
         try {
             const sql = `update provinces
-                        set name, full_name, latitude, longitude, display_order)
-                     values
-                        ($2, $3, $4, $5, $6)
-                     where id = $1`;
+                        set name = $2,
+                        full_name = $3,
+                        latitude = $4,
+                        longitude = $5,
+                        display_order = $6
+                        where id = $1`;
+            //const sql = `update provinces
+            //set name, full_name, latitude, longitude, display_order)
+            //values
+            //($2, $3, $4, $5, $6)
+            //where id = $1`;
             const values = [
+                entity.id,
                 entity.name,
                 entity.full_name,
                 entity.latitude,
                 entity.longitude,
                 entity.display_order
-            ];
+            ]
 
             const devolucion = await this.getDBPool().query(sql, values)
             rowsAffected = devolucion.rowCount;
@@ -100,20 +108,18 @@ export default class ProvinceRepository {
         //1 encontró y modifico, 0 no existía
     }
     deleteByIdAsync = async (id) => {
-        let returnEntity = null
+        let rowsAffected = 0
 
         try {
-            const sql = 'delete * from provinces where id = $1'
+            const sql = 'delete from provinces where id = $1'
             const value = [id]
 
             const devolucion = await this.getDBPool().query(sql, value)
-            if (devolucion.rows.length > 0) {
-                returnEntity = devolucion.rows[0]
-            }
+            rowsAffected = devolucion.rowCount;
         } catch (error) {
             console.log(error)
         }
 
-        return returnEntity
+        return rowsAffected
     }
 }
